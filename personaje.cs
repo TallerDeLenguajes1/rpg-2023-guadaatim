@@ -86,6 +86,8 @@ public class PersonajesJson
 
     public List<Personaje> LeerPersonajes(string archivo)
     {
-        
+        string jsonstring = File.ReadAllText(archivo);
+        List<Personaje> personajesdesserializados = JsonSerializer.Deserialize<List<Personaje>>(jsonstring);
+        return personajesdesserializados;
     }
 }
