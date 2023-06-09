@@ -3,7 +3,7 @@ namespace Personajes;
 public class Personaje
 {
     //datos
-    private string? tipo;
+    private Tipos tipo;
     private string? nombre;
     private string? apodo;
     private DateTime fechadenacimiento;
@@ -17,7 +17,6 @@ public class Personaje
     private int armadura;
     private int salud;
 
-    public string? Tipo { get => tipo; set => tipo = value; }
     public string? Nombre { get => nombre; set => nombre = value; }
     public string? Apodo { get => apodo; set => apodo = value; }
     public DateTime Fechadenacimiento { get => fechadenacimiento; set => fechadenacimiento = value; }
@@ -28,8 +27,7 @@ public class Personaje
     public int Nivel { get => nivel; set => nivel = value; }
     public int Armadura { get => armadura; set => armadura = value; }
     public int Salud { get => salud; set => salud = value; }
-
-    
+    internal Tipos Tipo { get => tipo; set => tipo = value; }
 }
 
 public class FabricaDePersonajes
@@ -39,6 +37,7 @@ public class FabricaDePersonajes
 
         var personaje = new Personaje();
 
+        
         
         
 
@@ -58,7 +57,7 @@ public class FabricaDePersonajes
 
 }
 
-enum Tipo
+enum Tipos
 {
     Dios,
     Semidios,
