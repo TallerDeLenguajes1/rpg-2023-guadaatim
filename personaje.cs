@@ -42,14 +42,22 @@ public class FabricaDePersonajes
         int nombre = NumeroRandom(0, 11);
         personaje.Nombre = nombres[nombre];
 
+        int tipo = NumeroRandom(0, 1);
+        personaje.Tipo = tipos[tipo];
+
+        int dia = NumeroRandom(0, 31);
+        int mes = NumeroRandom(1, 12);
+        int anio = NumeroRandom(1723, 2023);
+
+        //controlar dias de meses
+        personaje.Fechadenacimiento = new DateTime(anio, mes, dia);
+        personaje.Edad = DateTime.Now.Year - personaje.Fechadenacimiento.Year;
         personaje.Velocidad = NumeroRandom(1, 10);
         personaje.Destreza = NumeroRandom(1, 5);
         personaje.Fuerza = NumeroRandom(1, 10);
         personaje.Nivel = NumeroRandom(1, 10);
         personaje.Armadura = NumeroRandom(1, 10);
         personaje.Salud = 100;
-        
-    
 
         return personaje;
     }
@@ -64,11 +72,14 @@ public class FabricaDePersonajes
         return numerorandom;
     }
 
-}
+    private static void LeerPersonaje()
+    {
 
-enum Tipos
-{
-    Dios = 0,
-    Semidios = 1,
-    Monstruo = 2,
+    }
+
+    private static void GuardarPersonaje()
+    {
+
+    }
+
 }
