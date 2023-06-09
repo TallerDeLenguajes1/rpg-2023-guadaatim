@@ -90,4 +90,9 @@ public class PersonajesJson
         List<Personaje> personajesdesserializados = JsonSerializer.Deserialize<List<Personaje>>(jsonstring);
         return personajesdesserializados;
     }
+
+    // public int Existe(List<Personaje> listadepersonajes)
+    // {
+
+    // }
 }
