@@ -2,11 +2,14 @@ namespace Personajes;
 
 public class Personaje{
 
+    //datos
     private string? tipo;
     private string? nombre;
     private string? apodo;
     private DateTime fechadenacimiento;
     private int edad;
+    
+    //caracteristicas
     private int velocidad;
     private int destreza;
     private int fuerza;
@@ -25,5 +28,7 @@ public class Personaje{
     public int Nivel { get => nivel; set => nivel = value; }
     public int Armadura { get => armadura; set => armadura = value; }
     public int Salud { get => salud; set => salud = value; }
+
+    
 }
 
