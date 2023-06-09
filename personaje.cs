@@ -32,37 +32,37 @@ public class Personaje
 
 public class FabricaDePersonajes
 {
-    private static Personaje crearPersonaje()
+    public  Personaje crearPersonaje()
     {
         string[] nombres = {"Zeus", "Poseidon", "Hades", "Hera", "Demeter", "Afrodita", "Ares", "Atenea", "Apolo", "Artemisa", "Hefesto", "Dionisio"};
         string[] tipos = {"Dios", "Semidios"};
 
-        var personaje = new Personaje();
+        var p = new Personaje();
 
         int nombre = NumeroRandom(0, 11);
-        personaje.Nombre = nombres[nombre];
+        p.Nombre = nombres[nombre];
 
         int tipo = NumeroRandom(0, 1);
-        personaje.Tipo = tipos[tipo];
+        p.Tipo = tipos[tipo];
 
         int dia = NumeroRandom(0, 31);
         int mes = NumeroRandom(1, 12);
         int anio = NumeroRandom(1723, 2023);
 
         //controlar dias de meses
-        personaje.Fechadenacimiento = new DateTime(anio, mes, dia);
-        personaje.Edad = DateTime.Now.Year - personaje.Fechadenacimiento.Year;
-        personaje.Velocidad = NumeroRandom(1, 10);
-        personaje.Destreza = NumeroRandom(1, 5);
-        personaje.Fuerza = NumeroRandom(1, 10);
-        personaje.Nivel = NumeroRandom(1, 10);
-        personaje.Armadura = NumeroRandom(1, 10);
-        personaje.Salud = 100;
+        p.Fechadenacimiento = new DateTime(anio, mes, dia);
+        p.Edad = DateTime.Now.Year - p.Fechadenacimiento.Year;
+        p.Velocidad = NumeroRandom(1, 10);
+        p.Destreza = NumeroRandom(1, 5);
+        p.Fuerza = NumeroRandom(1, 10);
+        p.Nivel = NumeroRandom(1, 10);
+        p.Armadura = NumeroRandom(1, 10);
+        p.Salud = 100;
 
-        return personaje;
+        return p;
     }
 
-    private static int NumeroRandom(int inicio, int final)
+    public static int NumeroRandom(int inicio, int final)
     {
         Random random = new Random();
 
