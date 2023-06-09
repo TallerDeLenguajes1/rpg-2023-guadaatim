@@ -1,7 +1,7 @@
 namespace Personajes;
 
-public class Personaje{
-
+public class Personaje
+{
     //datos
     private string? tipo;
     private string? nombre;
@@ -32,3 +32,52 @@ public class Personaje{
     
 }
 
+public class FabricaDePersonajes
+{
+    private static Personaje crearPersonaje()
+    {
+
+        var personaje = new Personaje();
+
+        
+        
+
+
+        return personaje;
+    }
+
+    private static int NumeroRandom(int inicio, int final)
+    {
+        Random random = new Random();
+
+        int numerorandom;
+        numerorandom = random.Next(inicio, final+1);
+
+        return numerorandom;
+    }
+
+}
+
+enum Tipo
+{
+    Dios,
+    Semidios,
+    Monstruo,
+}
+
+enum Nombre
+{
+    Zeus,
+    Hera,
+    Poseidon, 
+    Hades,
+    Atenea,
+    Afrodita,
+    Dioniosio, 
+    Apolo, 
+    Artemisa,
+    Hermes,
+    Hefesto,
+    Demeter,
+    Hestia,
+}
