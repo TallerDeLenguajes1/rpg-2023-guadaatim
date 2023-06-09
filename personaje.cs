@@ -1,3 +1,6 @@
+using System.Text.Json;
+using System.IO;
+using System.Collections.Generic;
 namespace Personajes;
 
 public class Personaje
@@ -71,15 +74,22 @@ public class FabricaDePersonajes
 
         return numerorandom;
     }
+}
 
-    private static void LeerPersonaje()
-    {
-
+public class PersonajesJson
+{
+    public void GuardarPersonaje(List<Personaje> listapersonajes, string archivo)
+    {   
+        foreach (var pers in listapersonajes)
+        {
+            string json = JsonSerializer.Serialize(pers);
+            File.WriteAllText(archivo, json);
+        }
+        
     }
 
-    private static void GuardarPersonaje()
+    public List<Personaje> LeerPersonajes(string archivo)
     {
-
+        
     }
-
 }
