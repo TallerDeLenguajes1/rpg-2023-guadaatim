@@ -80,12 +80,8 @@ public class PersonajesJson
 {
     public void GuardarPersonaje(List<Personaje> listapersonajes, string archivo)
     {   
-        foreach (var pers in listapersonajes)
-        {
-            string json = JsonSerializer.Serialize(pers);
-            File.WriteAllText(archivo, json);
-        }
-        
+        string personajesjson = JsonSerializer.Serialize(listapersonajes);
+        File.WriteAllText(archivo, personajesjson);
     }
 
     public List<Personaje> LeerPersonajes(string archivo)
