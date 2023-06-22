@@ -91,14 +91,8 @@ public class PersonajesJson
         return personajesdesserializados;
     }
 
-    public int Existe(List<Personaje> listadepersonajes, string ruta)
+    public int Existe(string archivo)
     {
-        if (File.Exists(ruta))
-        {
-            GuardarPersonaje(listadepersonajes, ruta);
-        } else
-        {
-            
-        }
+        return File.Exists(archivo);
     }
 }
