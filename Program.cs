@@ -8,14 +8,31 @@ using System.Text.Json;
 Personaje nuevoPersonaje;
 FabricaDePersonajes fp = new FabricaDePersonajes();
 nuevoPersonaje = fp.crearPersonaje();
-Console.WriteLine(nuevoPersonaje.Nombre);
+//Console.WriteLine(nuevoPersonaje.Nombre);
 
 //lista de personajes
 List<Personaje> listapersonajes = new List<Personaje>();
+string? nombreArchivo = "listapersonajes.json";
+PersonajesJson HelperJson = new PersonajesJson();
 
-for (int i = 0; i < 9; i++)
+if (!HelperJson.Existe(nombreArchivo))
 {
-    listapersonajes.Add(fp.crearPersonaje());
+    for (int i = 0; i < 9; i++)
+    {
+        var personajito = fp.crearPersonaje();
+        listapersonajes.Add(personajito);
+    }
+    HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
+} else
+{
+    listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
 }
+ 
+List<Personaje> leerarchivo = new List<Personaje>();
 
-//generar 10 personajes y guardarlos
+leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
+
+for (int i = 0; i < leerarchivo.Count; i++)
+{
+    Console.WriteLine(leerarchivo[i].Nombre);
+}
