@@ -48,7 +48,7 @@ public class FabricaDePersonajes
         int tipo = NumeroRandom(0, 1);
         p.Tipo = tipos[tipo];
 
-        int dia = NumeroRandom(0, 31);
+        int dia = NumeroRandom(1, 31);
         int mes = NumeroRandom(1, 12);
         int anio = NumeroRandom(1723, 2023);
 
@@ -91,7 +91,7 @@ public class PersonajesJson
         return personajesdesserializados;
     }
 
-    public int Existe(string archivo)
+    public bool Existe(string archivo)
     {
         return File.Exists(archivo);
     }
