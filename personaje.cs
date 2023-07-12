@@ -1,6 +1,10 @@
+using System;
 using System.Text.Json;
 using System.IO;
+using System.Net;
 using System.Collections.Generic;
+using Api;
+using RickandMorty;
 namespace Personajes;
 
 public class Personaje
@@ -37,23 +41,22 @@ public class FabricaDePersonajes
 {
     public  Personaje crearPersonaje()
     {
-        string[] nombres = {"Zeus", "Poseidon", "Hades", "Hera", "Demeter", "Afrodita", "Ares", "Atenea", "Apolo", "Artemisa", "Hefesto", "Dionisio"};
-        string[] tipos = {"Dios", "Semidios"};
+        ap HelperApi = new ap();
 
+        int id = NumeroRandom(1, 21);
         var p = new Personaje();
 
-        int nombre = NumeroRandom(0, 11);
-        p.Nombre = nombres[nombre];
-
-        int tipo = NumeroRandom(0, 1);
-        p.Tipo = tipos[tipo];
+        HelperApi.ConsultaApi(id);
+        
+        p.Nombre = HelperApi.Nombre;
+        p.Tipo = HelperApi.Especie;
 
         int dia = NumeroRandom(1, 31);
         int mes = NumeroRandom(1, 12);
         int anio = NumeroRandom(1723, 2023);
 
         //controlar dias de meses
-        p.Fechadenacimiento = new DateTime(anio, mes, dia);
+        p.Fechadenacimiento = new DateTime(anio, mes, dia).Date;
         p.Edad = DateTime.Now.Year - p.Fechadenacimiento.Year;
         p.Velocidad = NumeroRandom(1, 10);
         p.Destreza = NumeroRandom(1, 5);
