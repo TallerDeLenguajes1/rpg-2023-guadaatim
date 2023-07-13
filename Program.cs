@@ -1,16 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-//Console.WriteLine("Hello, World!");
-
-using Personajes;
+﻿using Personajes;
+using TrabajandoJson;
+using RickandMorty;
+using Api;
 using System.Text.Json;
 
-//un personaje
-Personaje nuevoPersonaje;
+//crear lista de personajes
 FabricaDePersonajes fp = new FabricaDePersonajes();
-nuevoPersonaje = fp.crearPersonaje();
-//Console.WriteLine(nuevoPersonaje.Nombre);
-
-//lista de personajes
 List<Personaje> listapersonajes = new List<Personaje>();
 string? nombreArchivo = "listapersonajes.json";
 PersonajesJson HelperJson = new PersonajesJson();
@@ -19,20 +14,54 @@ if (!HelperJson.Existe(nombreArchivo))
 {
     for (int i = 0; i < 9; i++)
     {
-        var personajito = fp.crearPersonaje();
-        listapersonajes.Add(personajito);
+        var personaje = fp.crearPersonaje();
+
+        if (listapersonajes.Contains(personaje))
+        {
+            i--;
+        } else
+        {
+            listapersonajes.Add(personaje);
+        }
     }
     HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
 } else
 {
     listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
-}
+} //controlar
  
 List<Personaje> leerarchivo = new List<Personaje>();
 
 leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
 
+//JUEGOOOOOOO
+
+Console.WriteLine("Bienvenido!!!!");
+
+int elegido;
+Console.WriteLine("Elija un personaje: ");
+
 for (int i = 0; i < leerarchivo.Count; i++)
 {
-    Console.WriteLine(leerarchivo[i].Nombre);
+    Console.WriteLine(i + "-" + leerarchivo[i].Nombre);
 }
+
+bool control = int.TryParse(Console.ReadLine(), out elegido);
+
+if (control)
+{
+    var personajeElegido = listapersonajes[elegido];
+    Console.WriteLine("Su eleccion: " + personajeElegido.Nombre);
+    
+    do
+    {
+        
+
+
+
+    } while (listapersonajes.Count >= 1);
+}
+
+
+
+
