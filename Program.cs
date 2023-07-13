@@ -14,7 +14,7 @@ if (!HelperJson.Existe(nombreArchivo))
 {   
     int j = 0;
 
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 10; i++)
     {
         var personaje = fp.crearPersonaje();
 
@@ -83,12 +83,10 @@ if (control)
             int constanteDeAjuste = 500;
             int danioprovocado = 0;
 
-            
             int turno = fp.NumeroRandom(1, 2);
 
             if (turno == 1)
             {
-                //Console.WriteLine("Tu atacas!!!");
                 ataque = personajeElegido.Destreza * personajeElegido.Fuerza * personajeElegido.Nivel;
                 efectividad = fp.NumeroRandom(1, 101);
 
@@ -99,7 +97,6 @@ if (control)
                 enemigo.Salud -= danioprovocado;
             } else
             {
-                //Console.WriteLine("Te defiendes!!!");
                 ataque = enemigo.Destreza * enemigo.Fuerza * enemigo.Nivel;
                 efectividad = fp.NumeroRandom(1, 101);
                 
@@ -114,38 +111,46 @@ if (control)
         
         if (personajeElegido.Salud <= 0)
         {
-            Console.WriteLine("Perdiste!!!");
+            Console.WriteLine("-------Perdiste!!!-------");
+            listapersonajes.Remove(personajeElegido);
+
             Console.WriteLine("Cambia de personaje: ");
+            enemigo.Salud += 10;
             
-            int i = 0;
+            int i = 0;            
+            Console.WriteLine("Elige: ");
             foreach (var elegir in listapersonajes)
             {
                 Console.WriteLine(i + "-" + elegir.Nombre);
                 i++;
             }
-
-            Console.WriteLine("Elige: ");
-
+            
             control = int.TryParse(Console.ReadLine(), out elegido);
 
             if (control)
             {
+                
                 personajeElegido = listapersonajes[elegido];
-                listapersonajes.Remove(personajeElegido);
+                
             } else
             {
                 Console.WriteLine("Error. No se ingreso un numero");
             }
         } else
         {
-            Console.WriteLine("Ganaste!!!");
+            Console.WriteLine("-------Ganaste!!!-------");
             Console.WriteLine("Sigue asi!!!");
             listapersonajes.Remove(enemigo);
         }
         
     } while (listapersonajes.Count >= 1);
+
+    if (listapersonajes.Count == 1)
+    {
+        Console.WriteLine("FELICIDADES" + listapersonajes[0].Nombre + "!!!!!");
+        Console.WriteLine("Eres el ganador!!!!");
+    }
+} else
+{
+    Console.WriteLine("Error, No se ingreso un numero");
 }
-
-
-
-
