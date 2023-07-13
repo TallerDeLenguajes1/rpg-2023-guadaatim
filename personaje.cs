@@ -43,7 +43,7 @@ public class FabricaDePersonajes
     {
         ap HelperApi = new ap();
 
-        int id = NumeroRandom(1, 21);
+        int id = NumeroRandom(1, 20);
         var p = new Personaje();
 
         HelperApi.ConsultaApi(id);
@@ -68,7 +68,7 @@ public class FabricaDePersonajes
         return p;
     }
 
-    public static int NumeroRandom(int inicio, int final)
+    public int NumeroRandom(int inicio, int final)
     {
         Random random = new Random();
 
