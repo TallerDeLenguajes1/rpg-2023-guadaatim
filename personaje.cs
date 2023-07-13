@@ -43,7 +43,7 @@ public class FabricaDePersonajes
     {
         ap HelperApi = new ap();
 
-        int id = NumeroRandom(1, 20);
+        int id = NumeroRandom(0, 19);
         var p = new Personaje();
 
         HelperApi.ConsultaApi(id);
@@ -56,7 +56,7 @@ public class FabricaDePersonajes
         int anio = NumeroRandom(1723, 2023);
 
         //controlar dias de meses
-        p.Fechadenacimiento = new DateTime(anio, mes, dia).Date;
+        p.Fechadenacimiento = new DateTime(anio, mes, dia);
         p.Edad = DateTime.Now.Year - p.Fechadenacimiento.Year;
         p.Velocidad = NumeroRandom(1, 10);
         p.Destreza = NumeroRandom(1, 5);
