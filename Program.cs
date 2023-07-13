@@ -47,11 +47,9 @@ List<Personaje> leerarchivo = new List<Personaje>();
 leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
 
 //JUEGOOOOOOO
-
 Console.WriteLine("Bienvenido!!!!");
 
 int elegido;
-
 
 for (int i = 0; i < leerarchivo.Count; i++)
 {
@@ -63,14 +61,15 @@ bool control = int.TryParse(Console.ReadLine(), out elegido);
 
 if (control)
 {
+    var personajeElegido = listapersonajes[elegido];
+    listapersonajes.Remove(personajeElegido);
+
     do
     {
-        var personajeElegido = listapersonajes[elegido];
         Console.WriteLine("Su personaje: " + personajeElegido.Nombre);
-        listapersonajes.Remove(personajeElegido);
 
         var enemigo = new Personaje();
-        enemigo = listapersonajes[fp.NumeroRandom(0, 10)];
+        enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count)];
         Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
 
         //combate
@@ -89,7 +88,7 @@ if (control)
 
             if (turno == 1)
             {
-                Console.WriteLine("Tu atacas!!!");
+                //Console.WriteLine("Tu atacas!!!");
                 ataque = personajeElegido.Destreza * personajeElegido.Fuerza * personajeElegido.Nivel;
                 efectividad = fp.NumeroRandom(1, 101);
 
@@ -100,7 +99,7 @@ if (control)
                 enemigo.Salud -= danioprovocado;
             } else
             {
-                Console.WriteLine("Te defiendes!!!");
+                //Console.WriteLine("Te defiendes!!!");
                 ataque = enemigo.Destreza * enemigo.Fuerza * enemigo.Nivel;
                 efectividad = fp.NumeroRandom(1, 101);
                 
@@ -117,16 +116,34 @@ if (control)
         {
             Console.WriteLine("Perdiste!!!");
             Console.WriteLine("Cambia de personaje: ");
-            for (int i = 0; i < leerarchivo.Count; i++)
+            
+            int i = 0;
+            foreach (var elegir in listapersonajes)
             {
-                Console.WriteLine(i + "-" + leerarchivo[i].Nombre);
+                Console.WriteLine(i + "-" + elegir.Nombre);
+                i++;
             }
 
+            Console.WriteLine("Elige: ");
 
+            control = int.TryParse(Console.ReadLine(), out elegido);
 
+            if (control)
+            {
+                personajeElegido = listapersonajes[elegido];
+                listapersonajes.Remove(personajeElegido);
+            } else
+            {
+                Console.WriteLine("Error. No se ingreso un numero");
+            }
+        } else
+        {
+            Console.WriteLine("Ganaste!!!");
+            Console.WriteLine("Sigue asi!!!");
+            listapersonajes.Remove(enemigo);
         }
         
-    } while (listapersonajes.Count <= 1);
+    } while (listapersonajes.Count >= 1);
 }
 
 
