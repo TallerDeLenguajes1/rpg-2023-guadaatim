@@ -41,10 +41,7 @@ public class ap{
 
                         Nombre = personaje.results[id].name;
                         Especie = personaje.results[id].species;
-                        Estado = personaje.results[id].status;
-
-                        //List<RickAndMortyApi> elegido = new List<RickAndMortyApi>();
-                        
+                        Estado = personaje.results[id].status;                        
                     }
                 }
             }
