@@ -2,6 +2,7 @@
 using TrabajandoJson;
 using RickandMorty;
 using Api;
+using Imagenes;
 using System.Text.Json;
 
 //crear lista de personajes
@@ -47,6 +48,9 @@ List<Personaje> leerarchivo = new List<Personaje>();
 leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
 
 //JUEGOOOOOOO
+figuras HelperImagenes = new figuras();
+
+HelperImagenes.Circulo();
 Console.WriteLine("Bienvenido!!!!");
 
 int elegido;
@@ -69,7 +73,7 @@ if (control)
         Console.WriteLine("Su personaje: " + personajeElegido.Nombre);
 
         var enemigo = new Personaje();
-        enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count)];
+        enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count-1)];
         Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
 
         //combate
@@ -112,7 +116,7 @@ if (control)
         if (personajeElegido.Salud <= 0)
         {
             Console.WriteLine("-------Perdiste!!!-------");
-            listapersonajes.Remove(personajeElegido);
+            HelperImagenes.Perdedor();
 
             Console.WriteLine("Cambia de personaje: ");
             enemigo.Salud += 10;
@@ -129,8 +133,8 @@ if (control)
 
             if (control)
             {
-                
                 personajeElegido = listapersonajes[elegido];
+                listapersonajes.Remove(personajeElegido);
                 
             } else
             {
@@ -139,18 +143,33 @@ if (control)
         } else
         {
             Console.WriteLine("-------Ganaste!!!-------");
+            HelperImagenes.Ganador();
             Console.WriteLine("Sigue asi!!!");
             listapersonajes.Remove(enemigo);
         }
         
-    } while (listapersonajes.Count >= 1);
+    } while (listapersonajes.Count > 1);
 
     if (listapersonajes.Count == 1)
     {
-        Console.WriteLine("FELICIDADES" + listapersonajes[0].Nombre + "!!!!!");
-        Console.WriteLine("Eres el ganador!!!!");
+        if (personajeElegido == listapersonajes[0])
+        {
+            Console.WriteLine("FELICIDADES" + listapersonajes[0].Nombre + "!!!!!");
+            Console.WriteLine("Eres el ganador!!!!");
+            HelperImagenes.GanadorDelJuego();
+        } else
+        {
+            Console.WriteLine("Ganador: " + listapersonajes[0].Nombre);
+            Console.WriteLine("Perdiste!!!");
+            HelperImagenes.Perdedor();
+            Console.WriteLine("Intenta de nuevo mas tarde");
+        }
+        
     }
 } else
 {
     Console.WriteLine("Error, No se ingreso un numero");
 }
+
+//controlar juego
+//agregar algo para que no pase todo muy rapido
