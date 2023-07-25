@@ -51,13 +51,24 @@ public class FabricaDePersonajes
         p.Nombre = HelperApi.Nombre;
         p.Tipo = HelperApi.Especie;
 
-        int dia = NumeroRandom(1, 31);
+        int dia = 0;
         int mes = NumeroRandom(1, 12);
+        
+        if (mes == 2)
+        {
+            dia = NumeroRandom(1, 29);
+        } else
+        {
+            dia = NumeroRandom(1, 31);
+        }
+        
         int anio = NumeroRandom(1723, 2023);
 
         //controlar dias de meses
         p.Fechadenacimiento = new DateTime(anio, mes, dia);
         p.Edad = DateTime.Now.Year - p.Fechadenacimiento.Year;
+        p.Apodo = p.Nombre;
+        
         p.Velocidad = NumeroRandom(1, 10);
         p.Destreza = NumeroRandom(1, 5);
         p.Fuerza = NumeroRandom(1, 10);
