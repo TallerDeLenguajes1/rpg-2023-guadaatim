@@ -6,7 +6,7 @@ using RickandMorty;
 using System.Text.Json;
 namespace Api;
 
-public class ap{
+public class ServicioApi{
 
     private int id;
     private string nombre;
