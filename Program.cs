@@ -17,31 +17,8 @@ internal class Program
 
         if (!HelperJson.Existe(nombreArchivo))
         {
-            int j = 0;
 
-            for (int i = 0; i < 10; i++)
-            {
-                var personaje = fp.crearPersonaje();
-
-                foreach (var repetido in listapersonajes)
-                {
-                    if (repetido.Nombre == personaje.Nombre)
-                    {
-                        j = 1;
-                        break;
-                    }
-                }
-
-                if (j == 1)
-                {
-                    i--;
-                    j = 0;
-                }
-                else
-                {
-                    listapersonajes.Add(personaje);
-                }
-            }
+            listapersonajes = CrearLista(listapersonajes);  
             HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
         }
         else
@@ -49,7 +26,7 @@ internal class Program
             listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
         } //controlar
 
-        listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
+        //listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
 
         //juego
         figuras HelperImagenes = new figuras();
@@ -61,11 +38,10 @@ internal class Program
         Console.WriteLine("Presiona ENTER para comenzar el juego");
         Console.ReadLine();
 
-        int elegido;
-
         MostrarPersonajes(listapersonajes);
 
         Console.WriteLine("Elija un personaje: ");
+        int elegido;
         bool control = int.TryParse(Console.ReadLine(), out elegido);
 
         if (control)
@@ -189,6 +165,39 @@ internal class Program
         danioprovocado = (ataque * efectividad - defensa) / constanteDeAjuste;
         defiende.Salud -= danioprovocado;
 
+    }
+    
+    public static List<Personaje> CrearLista(List<Personaje> lista)
+    {
+        List<Personaje> listitapersonajes = new List<Personaje>();
+        FabricaDePersonajes fp3 = new FabricaDePersonajes();
+        int j = 0;
+
+        for (int i = 0; i < 10; i++)
+        {
+            var personaje = fp3.crearPersonaje();
+
+            foreach (var repetido in listitapersonajes)
+            {
+                if (repetido.Nombre == personaje.Nombre)
+                {
+                    j = 1;
+                    break;
+                }
+            }
+
+            if (j == 1)
+            {
+                i--;
+                j = 0;
+            }
+            else
+            {
+                listitapersonajes.Add(personaje);
+            }    
+        }
+
+        return listitapersonajes;
     }
 }
 
