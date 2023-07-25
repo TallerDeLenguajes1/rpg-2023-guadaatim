@@ -56,6 +56,10 @@ internal class Program
 
         HelperImagenes.Circulo();
         Console.WriteLine("Bienvenido!!!!");
+        Console.ReadLine();
+        Console.WriteLine("Listo para jugar??");
+        Console.WriteLine("Presiona ENTER para comenzar el juego");
+        Console.ReadLine();
 
         int elegido;
 
@@ -99,6 +103,7 @@ internal class Program
                 {
                     Console.WriteLine("-------Perdiste!!!-------");
                     HelperImagenes.Perdedor();
+                    Console.ReadLine();
 
                     Console.WriteLine("Cambia de personaje: ");
                     enemigo.Salud += 10;
@@ -125,6 +130,8 @@ internal class Program
                     HelperImagenes.Ganador();
                     Console.WriteLine("Sigue asi!!!");
                     listapersonajes.Remove(enemigo);
+                    Console.WriteLine("Presiona ENTER para seguir jugando");
+                    Console.ReadLine();
                 }
 
             } while (listapersonajes.Count > 1);
@@ -156,6 +163,7 @@ internal class Program
         for (int i = 0; i < lista.Count; i++)
         {
             Console.WriteLine(i + "-" + lista[i].Nombre);
+            Console.WriteLine("");
             Console.WriteLine("Tipo: " + lista[i].Tipo);
             Console.WriteLine("Nivel: " + lista[i].Nivel);
             Console.WriteLine("Fuerza: " + lista[i].Fuerza);
