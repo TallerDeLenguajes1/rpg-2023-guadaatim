@@ -5,170 +5,186 @@ using Api;
 using Imagenes;
 using System.Text.Json;
 
-//crear lista de personajes
-FabricaDePersonajes fp = new FabricaDePersonajes();
-List<Personaje> listapersonajes = new List<Personaje>();
-string? nombreArchivo = "listapersonajes.json";
-PersonajesJson HelperJson = new PersonajesJson();
-
-if (!HelperJson.Existe(nombreArchivo))
-{   
-    int j = 0;
-
-    for (int i = 0; i < 10; i++)
+internal class Program
+{
+    private static void Main(string[] args)
     {
-        var personaje = fp.crearPersonaje();
+        //crear lista de personajes
+        FabricaDePersonajes fp = new FabricaDePersonajes();
+        List<Personaje> listapersonajes = new List<Personaje>();
+        string? nombreArchivo = "listapersonajes.json";
+        PersonajesJson HelperJson = new PersonajesJson();
 
-        foreach (var repetido in listapersonajes)
+        if (!HelperJson.Existe(nombreArchivo))
         {
-            if (repetido.Nombre == personaje.Nombre)
+            int j = 0;
+
+            for (int i = 0; i < 10; i++)
             {
-                j = 1;
-                break;
+                var personaje = fp.crearPersonaje();
+
+                foreach (var repetido in listapersonajes)
+                {
+                    if (repetido.Nombre == personaje.Nombre)
+                    {
+                        j = 1;
+                        break;
+                    }
+                }
+
+                if (j == 1)
+                {
+                    i--;
+                    j = 0;
+                }
+                else
+                {
+                    listapersonajes.Add(personaje);
+                }
+            }
+            HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
+        }
+        else
+        {
+            listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
+        } //controlar
+
+        List<Personaje> leerarchivo = new List<Personaje>();
+
+        leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
+
+        //juego
+        figuras HelperImagenes = new figuras();
+
+        HelperImagenes.Circulo();
+        Console.WriteLine("Bienvenido!!!!");
+
+        int elegido;
+
+        MostrarPersonajes(leerarchivo);
+
+        Console.WriteLine("Elija un personaje: ");
+        bool control = int.TryParse(Console.ReadLine(), out elegido);
+
+        if (control)
+        {
+            var personajeElegido = listapersonajes[elegido];
+            listapersonajes.Remove(personajeElegido);
+
+            do
+            {
+                Console.WriteLine("Su personaje: " + personajeElegido.Nombre);
+
+                var enemigo = new Personaje();
+                enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
+                Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
+
+                //combate
+                Console.WriteLine("PELEA!!!");
+
+                do
+                {
+                    int turno = fp.NumeroRandom(1, 2);
+
+                    if (turno == 1)
+                    {
+                        Pelea(personajeElegido, enemigo);
+                    }
+                    else
+                    {
+                        Pelea(enemigo, personajeElegido);
+                    }
+
+                } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
+
+                if (personajeElegido.Salud <= 0)
+                {
+                    Console.WriteLine("-------Perdiste!!!-------");
+                    HelperImagenes.Perdedor();
+
+                    Console.WriteLine("Cambia de personaje: ");
+                    enemigo.Salud += 10;
+
+                    int i = 0;
+                    Console.WriteLine("Elige: ");
+                    foreach (var elegir in listapersonajes)
+                    {
+                        Console.WriteLine(i + "-" + elegir.Nombre);
+                        i++;
+                    }
+
+                    control = int.TryParse(Console.ReadLine(), out elegido);
+
+                    if (control)
+                    {
+                        personajeElegido = listapersonajes[elegido];
+                        listapersonajes.Remove(personajeElegido);
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error. No se ingreso un numero");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("-------Ganaste!!!-------");
+                    HelperImagenes.Ganador();
+                    Console.WriteLine("Sigue asi!!!");
+                    listapersonajes.Remove(enemigo);
+                }
+
+            } while (listapersonajes.Count > 1);
+
+            if (listapersonajes.Count == 1)
+            {
+                if (personajeElegido == listapersonajes[0])
+                {
+                    Console.WriteLine("FELICIDADES" + listapersonajes[0].Nombre + "!!!!!");
+                    Console.WriteLine("Eres el ganador!!!!");
+                    HelperImagenes.GanadorDelJuego();
+                }
+                else
+                {
+                    Console.WriteLine("Ganador: " + listapersonajes[0].Nombre);
+                    Console.WriteLine("Perdiste!!!");
+                    HelperImagenes.Perdedor();
+                    Console.WriteLine("Intenta de nuevo mas tarde");
+                }
+
             }
         }
-
-        if (j == 1)
+        else
         {
-            i--;
-            j = 0;
-        } else
-        {
-            listapersonajes.Add(personaje);
+            Console.WriteLine("Error, No se ingreso un numero");
         }
     }
-    HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
-} else
-{
-    listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
-} //controlar
- 
-List<Personaje> leerarchivo = new List<Personaje>();
 
-leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
-
-//JUEGOOOOOOO
-figuras HelperImagenes = new figuras();
-
-HelperImagenes.Circulo();
-Console.WriteLine("Bienvenido!!!!");
-
-int elegido;
-
-for (int i = 0; i < leerarchivo.Count; i++)
-{
-    Console.WriteLine(i + "-" + leerarchivo[i].Nombre);
-}
-
-Console.WriteLine("Elija un personaje: ");
-bool control = int.TryParse(Console.ReadLine(), out elegido);
-
-if (control)
-{
-    var personajeElegido = listapersonajes[elegido];
-    listapersonajes.Remove(personajeElegido);
-
-    do
+    public static void MostrarPersonajes(List<Personaje> lista)
     {
-        Console.WriteLine("Su personaje: " + personajeElegido.Nombre);
-
-        var enemigo = new Personaje();
-        enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count-1)];
-        Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
-
-        //combate
-        Console.WriteLine("PELEA!!!");
-
-        do
+        for (int i = 0; i < lista.Count; i++)
         {
-            int ataque = 0;
-            int defensa = 0;
-            int efectividad = 0;
-            int constanteDeAjuste = 500;
-            int danioprovocado = 0;
-
-            int turno = fp.NumeroRandom(1, 2);
-
-            if (turno == 1)
-            {
-                ataque = personajeElegido.Destreza * personajeElegido.Fuerza * personajeElegido.Nivel;
-                efectividad = fp.NumeroRandom(1, 101);
-
-                defensa = enemigo.Armadura * enemigo.Velocidad;
-
-                danioprovocado = ((ataque * efectividad) - defensa) / constanteDeAjuste;
-
-                enemigo.Salud -= danioprovocado;
-            } else
-            {
-                ataque = enemigo.Destreza * enemigo.Fuerza * enemigo.Nivel;
-                efectividad = fp.NumeroRandom(1, 101);
-                
-                defensa = personajeElegido.Armadura * personajeElegido.Velocidad;
-
-                danioprovocado = ((ataque * efectividad) - defensa) / constanteDeAjuste;
-
-                personajeElegido.Salud -= danioprovocado;
-            }
-
-        } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
-        
-        if (personajeElegido.Salud <= 0)
-        {
-            Console.WriteLine("-------Perdiste!!!-------");
-            HelperImagenes.Perdedor();
-
-            Console.WriteLine("Cambia de personaje: ");
-            enemigo.Salud += 10;
-            
-            int i = 0;            
-            Console.WriteLine("Elige: ");
-            foreach (var elegir in listapersonajes)
-            {
-                Console.WriteLine(i + "-" + elegir.Nombre);
-                i++;
-            }
-            
-            control = int.TryParse(Console.ReadLine(), out elegido);
-
-            if (control)
-            {
-                personajeElegido = listapersonajes[elegido];
-                listapersonajes.Remove(personajeElegido);
-                
-            } else
-            {
-                Console.WriteLine("Error. No se ingreso un numero");
-            }
-        } else
-        {
-            Console.WriteLine("-------Ganaste!!!-------");
-            HelperImagenes.Ganador();
-            Console.WriteLine("Sigue asi!!!");
-            listapersonajes.Remove(enemigo);
+            Console.WriteLine(i + "-" + lista[i].Nombre);
         }
-        
-    } while (listapersonajes.Count > 1);
-
-    if (listapersonajes.Count == 1)
-    {
-        if (personajeElegido == listapersonajes[0])
-        {
-            Console.WriteLine("FELICIDADES" + listapersonajes[0].Nombre + "!!!!!");
-            Console.WriteLine("Eres el ganador!!!!");
-            HelperImagenes.GanadorDelJuego();
-        } else
-        {
-            Console.WriteLine("Ganador: " + listapersonajes[0].Nombre);
-            Console.WriteLine("Perdiste!!!");
-            HelperImagenes.Perdedor();
-            Console.WriteLine("Intenta de nuevo mas tarde");
-        }
-        
     }
-} else
-{
-    Console.WriteLine("Error, No se ingreso un numero");
+
+    public static void Pelea(Personaje ataca, Personaje defiende)
+    {
+        int ataque = 0;
+        int defensa = 0;
+        int efectividad = 0;
+        int constanteDeAjuste = 500;
+        int danioprovocado = 0;
+        FabricaDePersonajes fp2 = new FabricaDePersonajes();
+
+        ataque = ataca.Destreza * ataca.Fuerza * ataca.Nivel;
+        efectividad = fp2.NumeroRandom(1, 101);
+
+        defensa = defiende.Armadura * defiende.Velocidad;
+        danioprovocado = (ataque * efectividad - defensa) / constanteDeAjuste;
+        defiende.Salud -= danioprovocado;
+
+    }
 }
 
 //controlar juego
