@@ -41,7 +41,7 @@ public class FabricaDePersonajes
 {
     public  Personaje crearPersonaje()
     {
-        ap HelperApi = new ap();
+        ServicioApi HelperApi = new ServicioApi();
 
         int id = NumeroRandom(0, 19);
         var p = new Personaje();
