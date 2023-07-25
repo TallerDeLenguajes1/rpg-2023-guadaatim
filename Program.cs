@@ -49,9 +49,7 @@ internal class Program
             listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
         } //controlar
 
-        List<Personaje> leerarchivo = new List<Personaje>();
-
-        leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
+        listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
 
         //juego
         figuras HelperImagenes = new figuras();
@@ -61,7 +59,7 @@ internal class Program
 
         int elegido;
 
-        MostrarPersonajes(leerarchivo);
+        MostrarPersonajes(listapersonajes);
 
         Console.WriteLine("Elija un personaje: ");
         bool control = int.TryParse(Console.ReadLine(), out elegido);
@@ -105,17 +103,12 @@ internal class Program
                     Console.WriteLine("Cambia de personaje: ");
                     enemigo.Salud += 10;
 
-                    int i = 0;
                     Console.WriteLine("Elige: ");
-                    foreach (var elegir in listapersonajes)
-                    {
-                        Console.WriteLine(i + "-" + elegir.Nombre);
-                        i++;
-                    }
+                    MostrarPersonajes(listapersonajes);
 
                     control = int.TryParse(Console.ReadLine(), out elegido);
 
-                    if (control)
+                    if (control && elegido <= listapersonajes.Count)
                     {
                         personajeElegido = listapersonajes[elegido];
                         listapersonajes.Remove(personajeElegido);
@@ -123,7 +116,7 @@ internal class Program
                     }
                     else
                     {
-                        Console.WriteLine("Error. No se ingreso un numero");
+                        Console.WriteLine("Error. No se ingreso un numero o esta fuera de rango");
                     }
                 }
                 else
@@ -140,9 +133,7 @@ internal class Program
             {
                 if (personajeElegido == listapersonajes[0])
                 {
-                    Console.WriteLine("FELICIDADES" + listapersonajes[0].Nombre + "!!!!!");
-                    Console.WriteLine("Eres el ganador!!!!");
-                    HelperImagenes.GanadorDelJuego();
+                    HelperImagenes.GanadorDelJuego(listapersonajes[0]);
                 }
                 else
                 {
@@ -165,6 +156,12 @@ internal class Program
         for (int i = 0; i < lista.Count; i++)
         {
             Console.WriteLine(i + "-" + lista[i].Nombre);
+            Console.WriteLine("Tipo: " + lista[i].Tipo);
+            Console.WriteLine("Nivel: " + lista[i].Nivel);
+            Console.WriteLine("Fuerza: " + lista[i].Fuerza);
+            Console.WriteLine("Velocidad: " + lista[i].Velocidad);
+            Console.WriteLine("Armadura: " + lista[i].Armadura);
+            Console.WriteLine("----------------------------------------------");
         }
     }
 
