@@ -1,4 +1,5 @@
 namespace Imagenes;
+using Personajes;
 
 public class figuras{
 
@@ -109,8 +110,11 @@ public class figuras{
         ");
     }
 
-    public void GanadorDelJuego()
+    public void GanadorDelJuego(Personaje ganador)
     {
+        Console.WriteLine("FELICIDADES" + ganador.Nombre + "!!!!!");
+        Console.WriteLine("Eres el ganador!!!!");
+
         Console.WriteLine(@"
                         'x0000000OOOkkkkOOO0000000000000000k,             .....
                   .''.....o000OkkkkkkkkkkkkkkkkO00000000000O:                   
