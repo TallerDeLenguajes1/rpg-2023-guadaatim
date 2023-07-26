@@ -26,8 +26,6 @@ internal class Program
             listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
         } //controlar
 
-        //listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
-
         //juego
         figuras HelperImagenes = new figuras();
 
@@ -57,7 +55,7 @@ internal class Program
                 enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
                 Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
 
-                //combate
+                //pelea
                 Console.WriteLine("PELEA!!!");
 
                 do
