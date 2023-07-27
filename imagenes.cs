@@ -14,34 +14,34 @@ public class figuras{
         ██║  ██║██║╚██████╗██║  ██╗    ██║  ██║██║ ╚████║██████╔╝    ██║ ╚═╝ ██║╚██████╔╝██║  ██║   ██║      ██║   
         ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   
                                                                                        
-                                .............                  
-                            .';:clooddddddddoolc:;,..            
-                        .':loddddk0Odooododdddddddddoc,.         
-                    .':odooollloxkkxooooooddodxxkkxddxdc,.      
-                    .,lddddlcloldkxl:loooooddoooook0Okkxdddo;.    
-                ,oddddxx:..;lol,..:odoooodooooodddxkxk00xdo;.  
-                .cdddl:lol'   ..   .cdxddoddooooddddoooxO0Okxdl' 
-                'oxdddc. ..          ,:,,,ldl::clollllooodxkOOxdo;
-                ddoolcc'               .;ldxllooodoccclooxkkxk0Oxd
-                xdc'.                  .,:::ldddddolcccllodkO0KKkd
-                dOKo.      ..             .,ldddol;,;:cclooodOXX0k
-                xOxl,.   'x00x'.,cc;.     .coddc:c:,,;:llloolxKXX0
-                xx;.     ;kxxx;.cddxl.     .,:clddo:,,;clccllo0XKO
-                kOo:'.                 .',;;:;...'.....';:clco0KOx
-                xkdoc.                 .,:lo;.           ..;cd00do
-                dooc.                  .,:;.                'lOOxx
-                ddddo:.               ..'..                  ,kOxx
-                0xdddl,..            .,;.        ..  ..      .xOkd
-                OxdddOko;...        .''.    .,:coOO'.kOoc::. .dKOx
-                xdddxkxocll;'.    .',::,.   '0WWWWO'.xWWWMX: .xKkd
-                xxdxOkol;'..        ..,;.    'looc.  .;llc'  .okxx
-                :xxdkko'               ....                  .cxxl
-                ,dxdd:.               .clc;.              .:oxxc.
-                .lxo.                 .:cll;.          .codxo,  
-                    ,,                  .;okxc.          .lxd;.   
-                                        ;xl.            .,.     
-                                        .:'                     
-                           ..                 
+                                                    .............                  
+                                                .';:clooddddddddoolc:;,..            
+                                            .':loddddk0Odooododdddddddddoc,.         
+                                        .':odooollloxkkxooooooddodxxkkxddxdc,.      
+                                        .,lddddlcloldkxl:loooooddoooook0Okkxdddo;.    
+                                    ,oddddxx:..;lol,..:odoooodooooodddxkxk00xdo;.  
+                                    .cdddl:lol'   ..   .cdxddoddooooddddoooxO0Okxdl' 
+                                    'oxdddc. ..          ,:,,,ldl::clollllooodxkOOxdo;
+                                    ddoolcc'               .;ldxllooodoccclooxkkxk0Oxd
+                                    xdc'.                  .,:::ldddddolcccllodkO0KKkd
+                                    dOKo.      ..             .,ldddol;,;:cclooodOXX0k
+                                    xOxl,.   'x00x'.,cc;.     .coddc:c:,,;:llloolxKXX0
+                                    xx;.     ;kxxx;.cddxl.     .,:clddo:,,;clccllo0XKO
+                                    kOo:'.                 .',;;:;...'.....';:clco0KOx
+                                    xkdoc.                 .,:lo;.           ..;cd00do
+                                    dooc.                  .,:;.                'lOOxx
+                                    ddddo:.               ..'..                  ,kOxx
+                                    0xdddl,..            .,;.        ..  ..      .xOkd
+                                    OxdddOko;...        .''.    .,:coOO'.kOoc::. .dKOx
+                                    xdddxkxocll;'.    .',::,.   '0WWWWO'.xWWWMX: .xKkd
+                                    xxdxOkol;'..        ..,;.    'looc.  .;llc'  .okxx
+                                    :xxdkko'               ....                  .cxxl
+                                    ,dxdd:.               .clc;.              .:oxxc.
+                                    .lxo.                 .:cll;.          .codxo,  
+                                        ,,                  .;okxc.          .lxd;.   
+                                                            ;xl.            .,.     
+                                                            .:'                     
+                                            ..                 
         ");
     }
 
