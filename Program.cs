@@ -138,16 +138,21 @@ internal class Program
 
                 Console.ReadLine();
 
-                int turno2 = fp.NumeroRandom(1, 2);
+                do
+                {
+                    int turno2 = fp.NumeroRandom(1, 2);
 
-                if (turno2 == 1)
-                {
-                    Pelea(personajeElegido, enemigo);
-                }
-                else
-                {
-                    Pelea(enemigo, personajeElegido);
-                }
+                    if (turno2 == 1)
+                    {
+                        Pelea(personajeElegido, enemigo);
+                    }
+                    else
+                    {
+                        Pelea(enemigo, personajeElegido);
+                    }
+
+                } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
+
 
                 if (personajeElegido.Salud >= 0)
                 {
