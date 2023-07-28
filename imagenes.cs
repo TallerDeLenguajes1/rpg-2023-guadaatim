@@ -1,9 +1,9 @@
-namespace Imagenes;
+namespace ImagenesyMensajes;
 using Personajes;
 
-public class figuras{
+public class Figuras{
 
-    public void Circulo()
+    public void Titulo()
     {
         Console.WriteLine(@"
 
@@ -148,7 +148,5 @@ public class figuras{
 ;,''''''.oNWWWWWWNx,........,kNWWK0KKNN0xk000000OkKWWX0NWWWWWWWKc.''............
 ;'.''''''dNWWWWWWXl.........dNWWN0O0NWNOxO000000OkXWWKKWWWWWWWWXl.''............
         ");
-
-        
     }
 }
