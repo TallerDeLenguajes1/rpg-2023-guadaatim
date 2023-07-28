@@ -2,7 +2,7 @@
 using TrabajandoJson;
 using RickandMorty;
 using Api;
-using Imagenes;
+using ImagenesyMensajes;
 using System.Text.Json;
 
 internal class Program
@@ -27,109 +27,122 @@ internal class Program
         } //controlar
 
         //juego
-        figuras HelperImagenes = new figuras();
+        Figuras HelperImagenes = new Figuras();
 
-        HelperImagenes.Circulo();
-        Console.WriteLine("Bienvenido!!!!");
+        HelperImagenes.Titulo();
         Console.ReadLine();
+        HelperImagenes.Bienvenido();
         Console.WriteLine("Listo para jugar??");
         Console.WriteLine("Presiona ENTER para comenzar el juego");
         Console.ReadLine();
-
-        MostrarPersonajes(listapersonajes);
-
-        Console.WriteLine("Elija un personaje: ");
+        
         int elegido;
-        bool control = int.TryParse(Console.ReadLine(), out elegido);
+        bool control;
 
-        if (control)
+        do
         {
-            var personajeElegido = listapersonajes[elegido];
-            listapersonajes.Remove(personajeElegido);
+            MostrarPersonajes(listapersonajes);
 
-            do
+            Console.WriteLine("Elija un personaje: ");
+            control = int.TryParse(Console.ReadLine(), out elegido);
+
+            if (control && elegido < listapersonajes.Count)
             {
-                Console.WriteLine("Su personaje: " + personajeElegido.Nombre);
-
-                var enemigo = new Personaje();
-                enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
-                Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
-
-                //pelea
-                Console.WriteLine("PELEA!!!");
+                var personajeElegido = listapersonajes[elegido];
+                listapersonajes.Remove(personajeElegido);
 
                 do
                 {
-                    int turno = fp.NumeroRandom(1, 2);
+                    Console.WriteLine("Su personaje: " + personajeElegido.Nombre);
 
-                    if (turno == 1)
+                    var enemigo = new Personaje();
+                    enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
+                    Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
+
+                    //pelea
+                    Console.WriteLine("PELEA!!!");
+
+                    do
                     {
-                        Pelea(personajeElegido, enemigo);
+                        int turno = fp.NumeroRandom(1, 2);
+
+                        if (turno == 1)
+                        {
+                            Pelea(personajeElegido, enemigo);
+                        }
+                        else
+                        {
+                            Pelea(enemigo, personajeElegido);
+                        }
+
+                    } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
+
+                    if (personajeElegido.Salud <= 0)
+                    {
+                        Console.WriteLine("-------Perdiste!!!-------");
+                        HelperImagenes.Perdedor();
+                        Console.ReadLine();
+
+                        Console.WriteLine("Cambia de personaje: ");
+                        enemigo.Salud += 10;
+
+                        do
+                        {                    
+                            Console.WriteLine("Elige: ");
+                            MostrarPersonajes(listapersonajes);
+
+                            control = int.TryParse(Console.ReadLine(), out elegido);
+
+                            if (control && elegido < listapersonajes.Count)
+                            {
+                                personajeElegido = listapersonajes[elegido];
+                                listapersonajes.Remove(personajeElegido);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Error. No se ingreso un numero o esta fuera de rango");
+                                Console.WriteLine("Intente de nuevo");
+                                Console.ReadLine();
+                            }
+                        
+                        } while (control != true || elegido >= listapersonajes.Count);
                     }
                     else
                     {
-                        Pelea(enemigo, personajeElegido);
+                        Console.WriteLine("-------Ganaste!!!-------");
+                        HelperImagenes.Ganador();
+                        Console.WriteLine("Sigue asi!!!");
+                        listapersonajes.Remove(enemigo);
+                        Console.WriteLine("Presiona ENTER para seguir jugando");
+                        Console.ReadLine();
                     }
 
-                } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
+                } while (listapersonajes.Count > 1);
 
-                if (personajeElegido.Salud <= 0)
+                if (listapersonajes.Count == 1)
                 {
-                    Console.WriteLine("-------Perdiste!!!-------");
-                    HelperImagenes.Perdedor();
-                    Console.ReadLine();
-
-                    Console.WriteLine("Cambia de personaje: ");
-                    enemigo.Salud += 10;
-
-                    Console.WriteLine("Elige: ");
-                    MostrarPersonajes(listapersonajes);
-
-                    control = int.TryParse(Console.ReadLine(), out elegido);
-
-                    if (control && elegido <= listapersonajes.Count)
+                    if (personajeElegido == listapersonajes[0])
                     {
-                        personajeElegido = listapersonajes[elegido];
-                        listapersonajes.Remove(personajeElegido);
-
+                        HelperImagenes.GanadorDelJuego(listapersonajes[0]);
                     }
                     else
                     {
-                        Console.WriteLine("Error. No se ingreso un numero o esta fuera de rango");
+                        Console.WriteLine("Ganador: " + listapersonajes[0].Nombre);
+                        Console.WriteLine("Perdiste!!!");
+                        HelperImagenes.Perdedor();
+                        Console.WriteLine("Intenta de nuevo mas tarde");
                     }
-                }
-                else
-                {
-                    Console.WriteLine("-------Ganaste!!!-------");
-                    HelperImagenes.Ganador();
-                    Console.WriteLine("Sigue asi!!!");
-                    listapersonajes.Remove(enemigo);
-                    Console.WriteLine("Presiona ENTER para seguir jugando");
-                    Console.ReadLine();
-                }
 
-            } while (listapersonajes.Count > 1);
-
-            if (listapersonajes.Count == 1)
-            {
-                if (personajeElegido == listapersonajes[0])
-                {
-                    HelperImagenes.GanadorDelJuego(listapersonajes[0]);
                 }
-                else
-                {
-                    Console.WriteLine("Ganador: " + listapersonajes[0].Nombre);
-                    Console.WriteLine("Perdiste!!!");
-                    HelperImagenes.Perdedor();
-                    Console.WriteLine("Intenta de nuevo mas tarde");
-                }
-
             }
-        }
-        else
-        {
-            Console.WriteLine("Error, No se ingreso un numero");
-        }
+            else
+            {
+                Console.WriteLine("Error. No se ingreso un numero o esta fuera de rango");
+                Console.WriteLine("Intente de nuevo");
+                Console.ReadLine();
+            }
+
+        } while (control != true || elegido >= listapersonajes.Count);
     }
 
     public static void MostrarPersonajes(List<Personaje> lista)
@@ -198,6 +211,3 @@ internal class Program
         return listitapersonajes;
     }
 }
-
-//controlar juego
-//agregar algo para que no pase todo muy rapido
