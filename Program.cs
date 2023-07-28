@@ -49,6 +49,7 @@ internal class Program
             if (control && elegido < listapersonajes.Count)
             {
                 var personajeElegido = listapersonajes[elegido];
+                var enemigo = new Personaje();
                 listapersonajes.Remove(personajeElegido);
 
                 do
@@ -57,7 +58,7 @@ internal class Program
                     Console.WriteLine("     Su personaje: " + personajeElegido.Nombre);
                     HelperImagenes.CuadroAbajo();
 
-                    var enemigo = new Personaje();
+
                     enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
                     HelperImagenes.CuadroArriba();
                     Console.WriteLine("     Te enfrentas a: " + enemigo.Nombre);
@@ -87,7 +88,7 @@ internal class Program
 
                         Console.WriteLine("CAMBIA DE PERSONAJE");
                         Console.ReadLine();
-                        enemigo.Salud += 100;
+                        enemigo.Salud += 50;
 
                         do
                         {                    
@@ -114,6 +115,7 @@ internal class Program
                     }
                     else
                     {
+                        personajeElegido.Salud += 50;
                         HelperImagenes.Ganador();
                         HelperImagenes.MensajeGanador();
                         Console.WriteLine("Sigue asi!!!");
@@ -124,22 +126,42 @@ internal class Program
 
                 } while (listapersonajes.Count > 1);
 
-                if (listapersonajes.Count == 1)
+                HelperImagenes.BatallaFinal();
+                HelperImagenes.CuadroArriba();
+                Console.WriteLine("     Su personaje: " + personajeElegido.Nombre);
+                HelperImagenes.CuadroAbajo();
+                
+                enemigo = listapersonajes[0];
+                HelperImagenes.CuadroArriba();
+                Console.WriteLine("     Te enfrentas a: " + enemigo.Nombre);
+                HelperImagenes.CuadroAbajo();
+
+                Console.ReadLine();
+
+                int turno2 = fp.NumeroRandom(1, 2);
+
+                if (turno2 == 1)
                 {
-                    if (personajeElegido == listapersonajes[0])
-                    {
-                        HelperImagenes.GanadorDelJuegoMensaje();
-                        HelperImagenes.GanadorDelJuego(listapersonajes[0]);
-                    }
-                    else
-                    {
-                        HelperImagenes.PerdedorDelJuego();
-                        Console.ReadLine();
-                        HelperImagenes.GanadorDelJuego(listapersonajes[0]);
-                        Console.WriteLine("Intenta de nuevo mas tarde");
-                    }
-                    break;
+                    Pelea(personajeElegido, enemigo);
                 }
+                else
+                {
+                    Pelea(enemigo, personajeElegido);
+                }
+
+                if (personajeElegido.Salud >= 0)
+                {
+                    HelperImagenes.GanadorDelJuegoMensaje();
+                    HelperImagenes.GanadorDelJuego(personajeElegido);
+                } 
+                else
+                {
+                    HelperImagenes.PerdedorDelJuego();
+                    Console.ReadLine();
+                    HelperImagenes.GanadorDelJuego(listapersonajes[0]);
+                    Console.WriteLine("Intenta de nuevo mas tarde");
+                }
+                break;
             }
             else
             {
@@ -175,7 +197,7 @@ internal class Program
         int defensa = 0;
         int efectividad = 0;
         int constanteDeAjuste = 500;
-        int danioprovocado = 0;
+        double danioprovocado = 0;
         FabricaDePersonajes fp2 = new FabricaDePersonajes();
 
         ataque = ataca.Destreza * ataca.Fuerza * ataca.Nivel;
@@ -183,8 +205,8 @@ internal class Program
 
         defensa = defiende.Armadura * defiende.Velocidad;
         danioprovocado = (ataque * efectividad - defensa) / constanteDeAjuste;
+        danioprovocado = ((int)Math.Round(danioprovocado, MidpointRounding.AwayFromZero));
         defiende.Salud -= danioprovocado;
-
     }
     
     public static List<Personaje> CrearLista(List<Personaje> lista)
