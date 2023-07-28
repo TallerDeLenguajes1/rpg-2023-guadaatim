@@ -179,7 +179,7 @@ internal class Program
         FabricaDePersonajes fp2 = new FabricaDePersonajes();
 
         ataque = ataca.Destreza * ataca.Fuerza * ataca.Nivel;
-        efectividad = fp2.NumeroRandom(1, 101);
+        efectividad = fp2.NumeroRandom(1, 100);
 
         defensa = defiende.Armadura * defiende.Velocidad;
         danioprovocado = (ataque * efectividad - defensa) / constanteDeAjuste;
