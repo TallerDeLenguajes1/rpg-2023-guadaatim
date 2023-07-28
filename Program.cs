@@ -17,14 +17,13 @@ internal class Program
 
         if (!HelperJson.Existe(nombreArchivo))
         {
-
             listapersonajes = CrearLista(listapersonajes);  
             HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
         }
         else
         {
             listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
-        } //controlar
+        } 
 
         //juego
         Figuras HelperImagenes = new Figuras();
@@ -32,7 +31,9 @@ internal class Program
         HelperImagenes.Titulo();
         Console.ReadLine();
         HelperImagenes.Bienvenido();
-        Console.WriteLine("Listo para jugar??");
+        HelperImagenes.CuadroArriba();
+        HelperImagenes.MensajeInicio();
+        HelperImagenes.CuadroAbajo();
         Console.WriteLine("Presiona ENTER para comenzar el juego");
         Console.ReadLine();
         
@@ -86,7 +87,8 @@ internal class Program
                         HelperImagenes.MensajePerdedor();
                         Console.ReadLine();
 
-                        Console.WriteLine("Cambia de personaje: ");
+                        Console.WriteLine("CAMBIA DE PERSONAJE");
+                        Console.ReadLine();
                         enemigo.Salud += 10;
 
                         do
@@ -101,6 +103,7 @@ internal class Program
                             {
                                 personajeElegido = listapersonajes[elegido];
                                 listapersonajes.Remove(personajeElegido);
+                                break;
                             }
                             else
                             {
@@ -109,7 +112,7 @@ internal class Program
                                 Console.ReadLine();
                             }
                         
-                        } while (control != true || elegido > listapersonajes.Count);
+                        } while (control != true || elegido >= listapersonajes.Count);
                     }
                     else
                     {
@@ -132,7 +135,8 @@ internal class Program
                     else
                     {
                         HelperImagenes.PerdedorDelJuego();
-                        Console.WriteLine("GANADOR: " + listapersonajes[0].Nombre);
+                        Console.ReadLine();
+                        HelperImagenes.GanadorDelJuego(listapersonajes[0]);
                         Console.WriteLine("Intenta de nuevo mas tarde");
                     }
 
