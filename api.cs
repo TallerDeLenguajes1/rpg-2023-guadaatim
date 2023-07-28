@@ -9,14 +9,14 @@ namespace Api;
 public class ServicioApi{
 
     private int id;
-    private string nombre;
-    private string especie;
-    private string estado;
+    private string? nombre;
+    private string? especie;
+    private string? estado;
 
     public int Id { get => id; set => id = value; }
-    public string Nombre { get => nombre; set => nombre = value; }
-    public string Especie { get => especie; set => especie = value; }
-    public string Estado { get => estado; set => estado = value; }
+    public string? Nombre { get => nombre; set => nombre = value; }
+    public string? Especie { get => especie; set => especie = value; }
+    public string? Estado { get => estado; set => estado = value; }
 
     public void ConsultaApi(int id)
     {
@@ -37,7 +37,7 @@ public class ServicioApi{
                     using (StreamReader objReader = new StreamReader(strReader))
                     {
                         string responseBody = objReader.ReadToEnd();
-                        RickAndMortyApi personaje = JsonSerializer.Deserialize<RickAndMortyApi>(responseBody);
+                        RickAndMortyApi? personaje = JsonSerializer.Deserialize<RickAndMortyApi>(responseBody);
 
                         Nombre = personaje.results[id].name;
                         Especie = personaje.results[id].species;
