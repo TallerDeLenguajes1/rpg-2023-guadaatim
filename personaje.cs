@@ -56,7 +56,7 @@ public class FabricaDePersonajes
         
         if (mes == 2)
         {
-            dia = NumeroRandom(1, 29);
+            dia = NumeroRandom(1, 28);
         } else
         {
             dia = NumeroRandom(1, 31);
