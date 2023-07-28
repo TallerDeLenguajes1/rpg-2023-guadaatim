@@ -22,7 +22,7 @@ public class Personaje
     private int fuerza;
     private int nivel;
     private int armadura;
-    private int salud;
+    private double salud;
 
     public string? Tipo { get => tipo; set => tipo = value; }
     public string? Nombre { get => nombre; set => nombre = value; }
@@ -34,7 +34,7 @@ public class Personaje
     public int Fuerza { get => fuerza; set => fuerza = value; }
     public int Nivel { get => nivel; set => nivel = value; }
     public int Armadura { get => armadura; set => armadura = value; }
-    public int Salud { get => salud; set => salud = value; }
+    public double Salud { get => salud; set => salud = value; }
 }
 
 public class FabricaDePersonajes
