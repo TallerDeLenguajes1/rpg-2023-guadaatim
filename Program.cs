@@ -41,6 +41,7 @@ internal class Program
 
         do
         {
+            HelperImagenes.MensajeMostrarPersonajes();
             MostrarPersonajes(listapersonajes);
 
             Console.WriteLine("Elija un personaje: ");
@@ -53,14 +54,16 @@ internal class Program
 
                 do
                 {
-                    Console.WriteLine("Su personaje: " + personajeElegido.Nombre);
+                    HelperImagenes.CuadroArriba();
+                    Console.WriteLine("     Su personaje: " + personajeElegido.Nombre);
+                    HelperImagenes.CuadroAbajo();
 
                     var enemigo = new Personaje();
                     enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
-                    Console.WriteLine("Te enfrentas a: " + enemigo.Nombre);
-
-                    //pelea
-                    Console.WriteLine("PELEA!!!");
+                    HelperImagenes.CuadroArriba();
+                    Console.WriteLine("     Te enfrentas a: " + enemigo.Nombre);
+                    HelperImagenes.CuadroAbajo();
+                    Console.ReadLine();
 
                     do
                     {
@@ -79,8 +82,8 @@ internal class Program
 
                     if (personajeElegido.Salud <= 0)
                     {
-                        Console.WriteLine("-------Perdiste!!!-------");
                         HelperImagenes.Perdedor();
+                        HelperImagenes.MensajePerdedor();
                         Console.ReadLine();
 
                         Console.WriteLine("Cambia de personaje: ");
@@ -88,7 +91,8 @@ internal class Program
 
                         do
                         {                    
-                            Console.WriteLine("Elige: ");
+                            Console.WriteLine("ELIGE: ");
+                            HelperImagenes.MensajeMostrarPersonajes();
                             MostrarPersonajes(listapersonajes);
 
                             control = int.TryParse(Console.ReadLine(), out elegido);
@@ -100,17 +104,17 @@ internal class Program
                             }
                             else
                             {
-                                Console.WriteLine("Error. No se ingreso un numero o esta fuera de rango");
+                                Console.WriteLine("ERROR. No se ingreso un numero o esta fuera de rango");
                                 Console.WriteLine("Intente de nuevo");
                                 Console.ReadLine();
                             }
                         
-                        } while (control != true || elegido >= listapersonajes.Count);
+                        } while (control != true || elegido > listapersonajes.Count);
                     }
                     else
                     {
-                        Console.WriteLine("-------Ganaste!!!-------");
                         HelperImagenes.Ganador();
+                        HelperImagenes.MensajeGanador();
                         Console.WriteLine("Sigue asi!!!");
                         listapersonajes.Remove(enemigo);
                         Console.WriteLine("Presiona ENTER para seguir jugando");
@@ -127,9 +131,8 @@ internal class Program
                     }
                     else
                     {
-                        Console.WriteLine("Ganador: " + listapersonajes[0].Nombre);
-                        Console.WriteLine("Perdiste!!!");
-                        HelperImagenes.Perdedor();
+                        HelperImagenes.PerdedorDelJuego();
+                        Console.WriteLine("GANADOR: " + listapersonajes[0].Nombre);
                         Console.WriteLine("Intenta de nuevo mas tarde");
                     }
 
@@ -149,14 +152,15 @@ internal class Program
     {
         for (int i = 0; i < lista.Count; i++)
         {
-            Console.WriteLine(i + "-" + lista[i].Nombre);
+            Console.WriteLine("══════════════════════════════════════════════");
+            Console.WriteLine(     i + "-" + lista[i].Nombre);
             Console.WriteLine("");
-            Console.WriteLine("Tipo: " + lista[i].Tipo);
-            Console.WriteLine("Nivel: " + lista[i].Nivel);
-            Console.WriteLine("Fuerza: " + lista[i].Fuerza);
-            Console.WriteLine("Velocidad: " + lista[i].Velocidad);
-            Console.WriteLine("Armadura: " + lista[i].Armadura);
-            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("     Tipo: " + lista[i].Tipo);
+            Console.WriteLine("     Nivel: " + lista[i].Nivel);
+            Console.WriteLine("     Fuerza: " + lista[i].Fuerza);
+            Console.WriteLine("     Velocidad: " + lista[i].Velocidad);
+            Console.WriteLine("     Armadura: " + lista[i].Armadura);
+            Console.WriteLine("══════════════════════════════════════════════");
         }
     }
 
