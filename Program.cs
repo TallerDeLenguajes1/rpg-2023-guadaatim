@@ -14,62 +14,135 @@ internal class Program
         List<Personaje> listapersonajes = new List<Personaje>();
         string? nombreArchivo = "listapersonajes.json";
         PersonajesJson HelperJson = new PersonajesJson();
+        List<Personaje> leerarchivo = new List<Personaje>();
 
-        if (!HelperJson.Existe(nombreArchivo))
-        {
-            listapersonajes = CrearLista(listapersonajes);  
-            HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
-        }
-        else
-        {
-            listapersonajes = HelperJson.LeerPersonajes(nombreArchivo);
-        } 
-
-        //juego
-        Figuras HelperImagenes = new Figuras();
-
-        HelperImagenes.Titulo();
-        Console.ReadLine();
-        HelperImagenes.Bienvenido();
-        HelperImagenes.MensajeInicio();
-        Console.WriteLine("Presiona ENTER para comenzar el juego");
-        Console.ReadLine();
+        listapersonajes = CrearLista(listapersonajes);
+        HelperJson.GuardarPersonaje(listapersonajes, nombreArchivo);
+        leerarchivo = HelperJson.LeerPersonajes(nombreArchivo);
         
-        int elegido;
-        bool control;
-
-        do
+        if (listapersonajes.Count == 0)
         {
-            HelperImagenes.MensajeMostrarPersonajes();
-            MostrarPersonajes(listapersonajes);
+            Console.WriteLine("El archivo esta vacio");
+        } else
+        {
+            //juego
+            Figuras HelperImagenes = new Figuras();
 
-            Console.WriteLine("Elija un personaje: ");
-            control = int.TryParse(Console.ReadLine(), out elegido);
+            HelperImagenes.Titulo();
+            Console.ReadLine();
+            HelperImagenes.Bienvenido();
+            HelperImagenes.MensajeInicio();
+            Console.WriteLine("Presiona ENTER para comenzar el juego");
+            Console.ReadLine();
+            
+            int elegido;
+            bool control;
 
-            if (control && elegido < listapersonajes.Count)
+            do
             {
-                var personajeElegido = listapersonajes[elegido];
-                var enemigo = new Personaje();
-                listapersonajes.Remove(personajeElegido);
+                HelperImagenes.MensajeMostrarPersonajes();
+                MostrarPersonajes(listapersonajes);
 
-                do
+                Console.WriteLine("Elija un personaje: ");
+                control = int.TryParse(Console.ReadLine(), out elegido);
+
+                if (control && elegido < listapersonajes.Count)
                 {
+                    var personajeElegido = listapersonajes[elegido];
+                    var enemigo = new Personaje();
+                    listapersonajes.Remove(personajeElegido);
+
+                    do
+                    {
+                        HelperImagenes.CuadroArriba();
+                        Console.WriteLine("     Su personaje: " + personajeElegido.Nombre);
+                        HelperImagenes.CuadroAbajo();
+
+
+                        enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
+                        HelperImagenes.CuadroArriba();
+                        Console.WriteLine("     Te enfrentas a: " + enemigo.Nombre);
+                        HelperImagenes.CuadroAbajo();
+                        Console.ReadLine();
+
+                        do
+                        {
+                            int turno = fp.NumeroRandom(1, 2);
+
+                            if (turno == 1)
+                            {
+                                Pelea(personajeElegido, enemigo);
+                            }
+                            else
+                            {
+                                Pelea(enemigo, personajeElegido);
+                            }
+
+                        } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
+
+                        if (personajeElegido.Salud <= 0)
+                        {
+                            HelperImagenes.Perdedor();
+                            HelperImagenes.MensajePerdedor();
+                            Console.ReadLine();
+
+                            Console.WriteLine("CAMBIA DE PERSONAJE");
+                            Console.ReadLine();
+                            enemigo.Salud += 50;
+
+                            do
+                            {                    
+                                Console.WriteLine("ELIGE: ");
+                                HelperImagenes.MensajeMostrarPersonajes();
+                                MostrarPersonajes(listapersonajes);
+
+                                control = int.TryParse(Console.ReadLine(), out elegido);
+
+                                if (control && elegido < listapersonajes.Count)
+                                {
+                                    personajeElegido = listapersonajes[elegido];
+                                    listapersonajes.Remove(personajeElegido);
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("ERROR. No se ingreso un numero o esta fuera de rango");
+                                    Console.WriteLine("Intente de nuevo");
+                                    Console.ReadLine();
+                                }
+                            
+                            } while (control != true || elegido >= listapersonajes.Count);
+                        }
+                        else
+                        {
+                            personajeElegido.Salud += 50;
+                            HelperImagenes.Ganador();
+                            HelperImagenes.MensajeGanador();
+                            Console.WriteLine("Sigue asi!!!");
+                            listapersonajes.Remove(enemigo);
+                            Console.WriteLine("Presiona ENTER para seguir jugando");
+                            Console.ReadLine();
+                        }
+
+                    } while (listapersonajes.Count > 1);
+
+                    HelperImagenes.BatallaFinal();
                     HelperImagenes.CuadroArriba();
                     Console.WriteLine("     Su personaje: " + personajeElegido.Nombre);
                     HelperImagenes.CuadroAbajo();
-
-
-                    enemigo = listapersonajes[fp.NumeroRandom(0, listapersonajes.Count - 1)];
+                    
+                    enemigo = listapersonajes[0];
                     HelperImagenes.CuadroArriba();
                     Console.WriteLine("     Te enfrentas a: " + enemigo.Nombre);
                     HelperImagenes.CuadroAbajo();
+
                     Console.ReadLine();
 
                     do
                     {
-                        int turno = fp.NumeroRandom(1, 2);
+                        int turno2 = fp.NumeroRandom(1, 2);
 
-                        if (turno == 1)
+                        if (turno2 == 1)
                         {
                             Pelea(personajeElegido, enemigo);
                         }
@@ -80,104 +153,32 @@ internal class Program
 
                     } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
 
-                    if (personajeElegido.Salud <= 0)
+
+                    if (personajeElegido.Salud >= 0)
                     {
-                        HelperImagenes.Perdedor();
-                        HelperImagenes.MensajePerdedor();
-                        Console.ReadLine();
-
-                        Console.WriteLine("CAMBIA DE PERSONAJE");
-                        Console.ReadLine();
-                        enemigo.Salud += 50;
-
-                        do
-                        {                    
-                            Console.WriteLine("ELIGE: ");
-                            HelperImagenes.MensajeMostrarPersonajes();
-                            MostrarPersonajes(listapersonajes);
-
-                            control = int.TryParse(Console.ReadLine(), out elegido);
-
-                            if (control && elegido < listapersonajes.Count)
-                            {
-                                personajeElegido = listapersonajes[elegido];
-                                listapersonajes.Remove(personajeElegido);
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("ERROR. No se ingreso un numero o esta fuera de rango");
-                                Console.WriteLine("Intente de nuevo");
-                                Console.ReadLine();
-                            }
-                        
-                        } while (control != true || elegido >= listapersonajes.Count);
-                    }
+                        HelperImagenes.GanadorDelJuegoMensaje();
+                        HelperImagenes.GanadorDelJuego(personajeElegido);
+                    } 
                     else
                     {
-                        personajeElegido.Salud += 50;
-                        HelperImagenes.Ganador();
-                        HelperImagenes.MensajeGanador();
-                        Console.WriteLine("Sigue asi!!!");
-                        listapersonajes.Remove(enemigo);
-                        Console.WriteLine("Presiona ENTER para seguir jugando");
+                        HelperImagenes.PerdedorDelJuego();
                         Console.ReadLine();
+                        HelperImagenes.GanadorDelJuego(listapersonajes[0]);
+                        Console.WriteLine("Intenta de nuevo mas tarde");
                     }
-
-                } while (listapersonajes.Count > 1);
-
-                HelperImagenes.BatallaFinal();
-                HelperImagenes.CuadroArriba();
-                Console.WriteLine("     Su personaje: " + personajeElegido.Nombre);
-                HelperImagenes.CuadroAbajo();
-                
-                enemigo = listapersonajes[0];
-                HelperImagenes.CuadroArriba();
-                Console.WriteLine("     Te enfrentas a: " + enemigo.Nombre);
-                HelperImagenes.CuadroAbajo();
-
-                Console.ReadLine();
-
-                do
-                {
-                    int turno2 = fp.NumeroRandom(1, 2);
-
-                    if (turno2 == 1)
-                    {
-                        Pelea(personajeElegido, enemigo);
-                    }
-                    else
-                    {
-                        Pelea(enemigo, personajeElegido);
-                    }
-
-                } while (personajeElegido.Salud >= 0 && enemigo.Salud >= 0);
-
-
-                if (personajeElegido.Salud >= 0)
-                {
-                    HelperImagenes.GanadorDelJuegoMensaje();
-                    HelperImagenes.GanadorDelJuego(personajeElegido);
-                } 
+                    break;
+                }
                 else
                 {
-                    HelperImagenes.PerdedorDelJuego();
+                    Console.WriteLine("Error. No se ingreso un numero o esta fuera de rango");
+                    Console.WriteLine("Intente de nuevo");
                     Console.ReadLine();
-                    HelperImagenes.GanadorDelJuego(listapersonajes[0]);
-                    Console.WriteLine("Intenta de nuevo mas tarde");
                 }
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Error. No se ingreso un numero o esta fuera de rango");
-                Console.WriteLine("Intente de nuevo");
-                Console.ReadLine();
-            }
 
-        } while (control != true || elegido >= listapersonajes.Count);
+            } while (control != true || elegido >= listapersonajes.Count);
 
-        File.Delete(nombreArchivo);
+            File.Delete(nombreArchivo);
+        }
     }
 
     public static void MostrarPersonajes(List<Personaje> lista)
@@ -224,24 +225,32 @@ internal class Program
         {
             var personaje = fp3.crearPersonaje();
 
-            foreach (var repetido in listitapersonajes)
+            if (personaje.Nombre == "vacio")
             {
-                if (repetido.Nombre == personaje.Nombre)
+                break;
+            } else
+            {
+                foreach (var repetido in listitapersonajes)
                 {
-                    j = 1;
-                    break;
+                    if (repetido.Nombre == personaje.Nombre)
+                    {
+                        j = 1;
+                        break;
+                    }
                 }
+
+                if (j == 1)
+                {
+                    i--;
+                    j = 0;
+                }
+                else
+                {
+                    listitapersonajes.Add(personaje);
+                }  
             }
 
-            if (j == 1)
-            {
-                i--;
-                j = 0;
-            }
-            else
-            {
-                listitapersonajes.Add(personaje);
-            }    
+              
         }
 
         return listitapersonajes;
