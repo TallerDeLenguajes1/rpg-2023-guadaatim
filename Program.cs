@@ -31,9 +31,7 @@ internal class Program
         HelperImagenes.Titulo();
         Console.ReadLine();
         HelperImagenes.Bienvenido();
-        HelperImagenes.CuadroArriba();
         HelperImagenes.MensajeInicio();
-        HelperImagenes.CuadroAbajo();
         Console.WriteLine("Presiona ENTER para comenzar el juego");
         Console.ReadLine();
         
@@ -89,7 +87,7 @@ internal class Program
 
                         Console.WriteLine("CAMBIA DE PERSONAJE");
                         Console.ReadLine();
-                        enemigo.Salud += 10;
+                        enemigo.Salud += 100;
 
                         do
                         {                    
@@ -130,6 +128,7 @@ internal class Program
                 {
                     if (personajeElegido == listapersonajes[0])
                     {
+                        HelperImagenes.GanadorDelJuegoMensaje();
                         HelperImagenes.GanadorDelJuego(listapersonajes[0]);
                     }
                     else
@@ -139,7 +138,7 @@ internal class Program
                         HelperImagenes.GanadorDelJuego(listapersonajes[0]);
                         Console.WriteLine("Intenta de nuevo mas tarde");
                     }
-
+                    break;
                 }
             }
             else
@@ -150,6 +149,8 @@ internal class Program
             }
 
         } while (control != true || elegido >= listapersonajes.Count);
+
+        File.Delete(nombreArchivo);
     }
 
     public static void MostrarPersonajes(List<Personaje> lista)
