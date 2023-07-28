@@ -18,7 +18,6 @@ public class ServicioApi{
     public string? Especie { get => especie; set => especie = value; }
     public string? Estado { get => estado; set => estado = value; }
 
-
     public void ConsultaApi(int id)
     {
         var url = "https://rickandmortyapi.com/api/character";
