@@ -18,6 +18,7 @@ public class ServicioApi{
     public string? Especie { get => especie; set => especie = value; }
     public string? Estado { get => estado; set => estado = value; }
 
+
     public void ConsultaApi(int id)
     {
         var url = "https://rickandmortyapi.com/api/character";
@@ -25,6 +26,9 @@ public class ServicioApi{
         request.Method = "GET";
         request.ContentType = "application/json";
         request.Accept = "application/json";
+
+        Nombre = "vacio";
+        Especie = "vacio";
 
         try
         {
@@ -48,7 +52,6 @@ public class ServicioApi{
         catch (WebException ex)
         {
             Console.WriteLine("Problemas de acceso a la API");
-            throw;
         }
     }
 }
