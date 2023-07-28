@@ -59,9 +59,14 @@ public class FabricaDePersonajes
             dia = NumeroRandom(1, 28);
         } else
         {
-            dia = NumeroRandom(1, 31);
+            if (mes == 4 || mes == 6 || mes == 9 || mes == 11)
+            {
+                dia = NumeroRandom(1, 30); 
+            } else
+            {
+                dia = NumeroRandom(1, 31);
+            }
         }
-        
         int anio = NumeroRandom(1723, 2023);
 
         //controlar dias de meses
