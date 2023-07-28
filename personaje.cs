@@ -13,7 +13,7 @@ public class Personaje
     private string? tipo;
     private string? nombre;
     private string? apodo;
-    private DateTime fechadenacimiento;
+    private DateOnly fechadenacimiento;
     private int edad;
     
     //caracteristicas
@@ -27,7 +27,7 @@ public class Personaje
     public string? Tipo { get => tipo; set => tipo = value; }
     public string? Nombre { get => nombre; set => nombre = value; }
     public string? Apodo { get => apodo; set => apodo = value; }
-    public DateTime Fechadenacimiento { get => fechadenacimiento; set => fechadenacimiento = value; }
+    public DateOnly Fechadenacimiento { get => fechadenacimiento; set => fechadenacimiento = value; }
     public int Edad { get => edad; set => edad = value; }
     public int Velocidad { get => velocidad; set => velocidad = value; }
     public int Destreza { get => destreza; set => destreza = value; }
@@ -65,7 +65,7 @@ public class FabricaDePersonajes
         int anio = NumeroRandom(1723, 2023);
 
         //controlar dias de meses
-        p.Fechadenacimiento = new DateTime(anio, mes, dia);
+        p.Fechadenacimiento = new DateOnly(anio, mes, dia);
         p.Edad = DateTime.Now.Year - p.Fechadenacimiento.Year;
         p.Apodo = p.Nombre;
         
