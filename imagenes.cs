@@ -243,9 +243,9 @@ public class Figuras{
     {
         Console.WriteLine(@"
         En esta batalla intergalactica te enfrentaras a enemigos de distintos planetas y universos.
-        Selecciona un jugador y, si ganas, continuas peleando con el mismo.
+        Seleccionas un jugador y, si ganas, continuas peleando con el mismo.
         Si pierdes, puedes cambiar de jugador.
-        Hasta la batalla final, que lo decidira todo...
+        Pelea hasta la batalla final, que lo decidira todo...
         PREPARADO?
         ");
     }
