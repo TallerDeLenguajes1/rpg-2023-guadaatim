@@ -112,7 +112,7 @@ public class Figuras{
 
     public void GanadorDelJuego(Personaje ganador)
     {
-        Console.WriteLine("FELICIDADES" + ganador.Nombre + "!!!!!");
+        Console.WriteLine("FELICIDADES " + ganador.Nombre + "!!!!!");
         Console.WriteLine("Eres el ganador!!!!");
 
         Console.WriteLine(@"
