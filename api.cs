@@ -40,8 +40,7 @@ public class ServicioApi{
                         RickAndMortyApi? personaje = JsonSerializer.Deserialize<RickAndMortyApi>(responseBody);
 
                         Nombre = personaje.results[id].name;
-                        Especie = personaje.results[id].species;
-                        Estado = personaje.results[id].status;                        
+                        Especie = personaje.results[id].species;                     
                     }
                 }
             }
